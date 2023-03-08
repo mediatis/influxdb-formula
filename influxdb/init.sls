@@ -19,14 +19,14 @@
       {% set filename = "influxdb-" + influxdb_settings['version'] + "-1." + grains['osarch'] + ".rpm" %}
     {% endif %}
   {% elif major == '1' and minor|int >= 8 %}
-    {% set base_url = 'https://dl.influxdata.com/influxdb/releases/influxdb_1.8.0_amd64.deb' %}
+    {% set base_url = 'https://dl.influxdata.com/influxdb/releases' %}
     {% if grains['os_family'] == 'Debian' %}
       {% set filename = "influxdb_" + influxdb_settings['version'] + "_" + grains['osarch'] + ".deb" %}
     {% elif grains['os_family'] == 'RedHat' or grains['os_family'] == 'Suse' %}
       {% set filename = "influxdb-" + influxdb_settings['version'] + "." + grains['osarch'] + ".rpm" %}
     {% endif %}
   {% elif major == '2' and minor|int >= 0 %}
-    {% set base_url = 'https://dl.influxdata.com/influxdb/releases/influxdb2-2.6.1-arm64.deb' %}
+    {% set base_url = 'https://dl.influxdata.com/influxdb/releases' %}
     {% if grains['os_family'] == 'Debian' %}
       {% set filename = "influxdb2-" + influxdb_settings['version'] + "-" + grains['osarch'] + ".deb" %}
     {% elif grains['os_family'] == 'RedHat' or grains['os_family'] == 'Suse' %}
