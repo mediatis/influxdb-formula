@@ -54,8 +54,20 @@ influxdb_remove_broken_download:
     - onfail:
       - cmd: influxdb_package
 
-
+{% if major == '2' %}
 influxdb_install:
+  pkg.installed:
+    - sources:
+      - influxdb2: /tmp/{{ filename }}
+    - require:
+      - cmd: influxdb_package
+    - watch:
+      - cmd: influxdb_package
+  {% if grains['os_family'] == 'Suse' %}
+    - skip_verify: true
+  {% endif %}
+  {% else %}
+  influxdb_install:
   pkg.installed:
     - sources:
       - influxdb: /tmp/{{ filename }}
@@ -65,6 +77,7 @@ influxdb_install:
       - cmd: influxdb_package
   {% if grains['os_family'] == 'Suse' %}
     - skip_verify: true
+  {% endif %}
   {% endif %}
 
 
@@ -76,7 +89,6 @@ influxdb_install_systemd_unit:
 {% endif %}
 
 {% else %}
-
 
 influxdb_install:
   pkg.installed:
