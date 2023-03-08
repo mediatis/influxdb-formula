@@ -66,7 +66,7 @@ influxdb_install:
   {% if grains['os_family'] == 'Suse' %}
     - skip_verify: true
   {% endif %}
-  {% else %}
+{% else %}
   influxdb_install:
   pkg.installed:
     - sources:
@@ -78,7 +78,7 @@ influxdb_install:
   {% if grains['os_family'] == 'Suse' %}
     - skip_verify: true
   {% endif %}
-  {% endif %}
+{% endif %}
 
 
 {% if grains['os_family'] == 'Suse' %}
@@ -90,11 +90,18 @@ influxdb_install_systemd_unit:
 
 {% else %}
 
+{% if major == '2' %}
+influxdb_install:
+  pkg.installed:
+    - sources:
+      - influxdb2: {{ base_url }}/{{ filename }}
+{% else %}
 influxdb_install:
   pkg.installed:
     - sources:
       - influxdb: {{ base_url }}/{{ filename }}
-
+{% endif %}
+  
 {% endif %}
 
 influxdb_group:
